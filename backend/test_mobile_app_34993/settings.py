@@ -48,7 +48,8 @@ except (DefaultCredentialsError, PermissionDenied):
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str("SECRET_KEY")
 
-ALLOWED_HOSTS = env.list("HOST", default=["*"])
+# ALLOWED_HOSTS = env.list("HOST", default=["*"])
+ALLOWED_HOSTS = ['*']
 SITE_ID = 1
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
@@ -257,3 +258,11 @@ if GS_BUCKET_NAME:
     DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
     STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
     GS_DEFAULT_ACL = "publicRead"
+
+
+REST_FRAMEWORK = {
+            'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+            'DEFAULT_AUTHENTICATION_CLASSES': (
+                'rest_framework.authentication.TokenAuthentication',
+            )
+}
