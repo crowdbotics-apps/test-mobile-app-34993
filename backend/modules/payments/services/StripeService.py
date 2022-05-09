@@ -13,8 +13,13 @@ class StripeService:
             stripe_version=env.str("STRIPE_VERSION", '2020-08-27'),
         )
         paymentIntent = stripe.PaymentIntent.create(
-            amount=cents,
+            amount=100,
             currency=env.str("STRIPE_CURRENCY", 'usd'),
+            # payment_method_types=["card"],
+            automatic_payment_methods={"enabled": True},
+            description="just for test",
+            # return_url="https://stripe.com/docs/api/payment_intents/create",
+            # confirm=True,
             customer=cus_id
         )
 
